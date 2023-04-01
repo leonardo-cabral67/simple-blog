@@ -2,7 +2,7 @@ import Head from "next/head";
 import Navbar from "../components/Navbar";
 import "../globals.css";
 
-export default function App({Component, componentProps}) {
+export default function App({Component, pageProps}) {
     return (
         <>
             <Head>
@@ -11,7 +11,7 @@ export default function App({Component, componentProps}) {
             <header className="ml-8 mt-6 mb-20">
                 <Navbar />
             </header>
-            <Component/>
+            <Component {...pageProps} />
         </>
     )
 }
