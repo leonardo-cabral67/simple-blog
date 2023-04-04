@@ -1,12 +1,17 @@
+import {readFile} from 'fs/promises';
 import Head from "next/head";
 
+async function getPost() {
+    const data = await readFile("content/posts/first-post.json")
+    const post = JSON.parse(data)
+    return post
+}
+
 export async function getStaticProps() {
+    const post = await getPost()
     return {
         props: {
-            post: {
-                title: "first post",
-                body: "This is my first post in this blog",
-            },
+            post
         },
     };
 }
