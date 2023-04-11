@@ -1,7 +1,19 @@
 import Head from "next/head";
 import Link from "next/link";
+import { getSlugs } from "../lib/posts";
 
-export default function Home() {
+export async function getStaticProps() {
+    const posts = await getSlugs()
+
+    return {
+        props: {
+            posts
+        }
+    }
+    
+}
+
+export default function Home({posts}) {
     return (
         <>
             <Head>
@@ -14,9 +26,13 @@ export default function Home() {
                     Posts: 
                 </h2>
                 <ul className="ml-10">
-                    <li className="text-lg text-blue-400">
-                        <Link href="/posts/first-post">First post</Link>    
-                    </li>
+                    {
+                        posts.map(post => (
+                            <li className="text-lg text-blue-400">
+                                <Link href={`/posts/${post}`}>{post}</Link>    
+                            </li>
+                        ))
+                    }
                 </ul>
             </main>
         </>
